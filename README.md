@@ -24,7 +24,7 @@ Generate strong, random passwords from the command line with customizable charac
 
 ### 1. Via pipx (recommended)
 ```bash
-pipx install git+https://github.com/yourusername/genpass
+pipx install git+https://github.com/kilyabin/GenPass
 ````
 
 ### 2. Local installation
@@ -32,7 +32,7 @@ pipx install git+https://github.com/yourusername/genpass
 Clone the repo and run the install script:
 
 ```bash
-git clone https://github.com/yourusername/genpass.git
+git clone https://github.com/kilyabin/GenPass.git
 cd genpass
 ./install.sh
 ```
