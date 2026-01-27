@@ -1,0 +1,14 @@
+[project]
+name = "genpass"
+version = "1.0.0"
+description = "Secure password generator CLI"
+authors = [{ name = "Ilya Kom" }]
+readme = "README.md"
+license = "MIT"
+requires-python = ">= 3.8"
+
+[project.scripts]
+genpass = "genpass.cli:main"
+
+[tool.setuptools]
+packages = ["genpass"]

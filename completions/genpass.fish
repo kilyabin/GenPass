@@ -1,0 +1,8 @@
+complete -c genpass -l length -s l -d "Password length"
+complete -c genpass -l count  -s n -d "Number of passwords"
+complete -c genpass -l lower  -d "Lowercase letters"
+complete -c genpass -l upper  -d "Uppercase letters"
+complete -c genpass -l digits -d "Digits"
+complete -c genpass -l symbols -d "Symbols"
+complete -c genpass -l symbol-set -d "Custom symbol set"
+complete -c genpass -l no-ensure -d "Disable character guarantees"
