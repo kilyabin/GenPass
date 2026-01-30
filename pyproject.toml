@@ -2,7 +2,7 @@
 name = "genpass"
 version = "1.0.0"
 description = "Secure password generator CLI"
-authors = [{ name = "Ilya Kom" }]
+authors = [{ name = "kilyabin" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">= 3.8"
