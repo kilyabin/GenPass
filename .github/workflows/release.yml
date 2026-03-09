@@ -89,11 +89,6 @@ jobs:
           done
           ls -la
 
-      - name: Delete existing draft release
-        uses: hugo19941951/delete-draft-releases@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
