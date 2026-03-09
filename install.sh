@@ -21,3 +21,4 @@ cp completions/genpass.zsh  "$PREFIX/zsh/site-functions/_genpass"
 cp completions/genpass.fish "$PREFIX/fish/vendor_completions.d/genpass.fish"
 
 echo "[✓] Installation complete. Restart your shell."
+echo "[✓] Clipboard support: pipx inject genpass pyperclip"
