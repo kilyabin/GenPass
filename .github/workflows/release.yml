@@ -18,13 +18,10 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: genpass-linux
-            asset_name: genpass-linux
           - os: windows-latest
             artifact_name: genpass-windows.exe
-            asset_name: genpass-windows.exe
           - os: macos-latest
             artifact_name: genpass-macos
-            asset_name: genpass-macos
 
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +38,7 @@ jobs:
           pip install -e .
 
       - name: Build executable with PyInstaller
+        shell: bash
         run: |
           pyinstaller --onefile --name ${{ matrix.artifact_name }} genpass/cli.py
 
@@ -48,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact_name }}
-          path: dist/${{ matrix.artifact_name }}${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+          path: dist/${{ matrix.artifact_name }}
 
   release:
     name: Create Release
@@ -64,19 +62,22 @@ jobs:
           path: artifacts
 
       - name: Prepare release assets
+        shell: bash
         run: |
           cd artifacts
-          ls -R
-          mv genpass-linux/genpass-linux genpass-linux
-          mv genpass-windows.exe/genpass-windows.exe genpass-windows.exe
-          mv genpass-macos/genpass-macos genpass-macos
+          for dir in */; do
+            dir="${dir%/}"
+            for file in "$dir"/*; do
+              if [ -f "$file" ]; then
+                mv "$file" "$dir"
+              fi
+            done
+          done
+          ls -la
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            artifacts/genpass-linux
-            artifacts/genpass-windows.exe
-            artifacts/genpass-macos
+          files: artifacts/*
           generate_release_notes: true
           draft: true
