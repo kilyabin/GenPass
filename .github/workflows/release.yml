@@ -80,13 +80,9 @@ jobs:
         run: |
           cd artifacts
           for dir in */; do
-            dir="${dir%/}"
-            for file in "$dir"/*; do
-              if [ -f "$file" ]; then
-                mv "$file" "$dir"
-              fi
-            done
+            cp "$dir"/* . 2>/dev/null || true
           done
+          rm -rf */
           ls -la
 
       - name: Create Release
