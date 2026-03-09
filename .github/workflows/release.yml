@@ -2,8 +2,7 @@ name: Build & Release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: ["main"]
 
 permissions:
   contents: write
@@ -55,6 +54,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate version from commit
+        id: version
+        run: |
+          VERSION="v$(date +%Y.%m.%d)-$(git rev-parse --short HEAD)"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Generated version: $VERSION"
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -75,9 +83,17 @@ jobs:
           done
           ls -la
 
+      - name: Delete existing draft release
+        uses: hugo19941951/delete-draft-releases@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release ${{ steps.version.outputs.version }}
           files: artifacts/*
           generate_release_notes: true
-          draft: true
+          draft: false
+          prerelease: true
