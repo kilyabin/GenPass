@@ -74,16 +74,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+          merge-multiple: true
 
       - name: Prepare release assets
         shell: bash
         run: |
           cd artifacts
-          for dir in */; do
-            cp "$dir"/* . 2>/dev/null || true
-          done
-          rm -rf */
           ls -la
+          chmod +x * 2>/dev/null || true
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
